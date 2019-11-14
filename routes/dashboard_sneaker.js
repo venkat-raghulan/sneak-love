@@ -52,3 +52,12 @@ router.get("/sneakers/kids", (req, res) => {
     })
     .catch(dbErr => console.log(dbErr));
 });
+
+router.get("/one-product/:id", (req, res) => {
+  sneakerModel
+    .findOne({ _id: req.params.id })
+    .then(dbRes => {
+      res.render("one_product", { sneaker: dbRes });
+    })
+    .catch(dbErr => console.log(dbErr));
+});

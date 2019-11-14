@@ -5,6 +5,7 @@ const sneakerSchema = new Schema({
   name: String,
   ref: String,
   sizes: Array,
+  image: { type: String, default: "../medias/img/shoe.png" },
   description: String,
   price: Number,
   category: {
