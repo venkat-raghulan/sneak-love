@@ -21,4 +21,9 @@ router.get("/signin", (req, res) => {
   res.render("signin");
 });
 
+router.get("/logout", (req, res) => {
+  req.session.currentUser = null;
+  res.redirect("/signin");
+});
+
 module.exports = router;
