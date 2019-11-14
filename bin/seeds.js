@@ -5,7 +5,9 @@ const sneakerArray = [
     sizes: ["30 inch", "32 inch", "36 inch"],
     description: "You can float around with these shoes",
     price: 32,
-    category: "men"
+    category: "women",
+    image:
+      "https://res.cloudinary.com/dj5c34oiw/image/upload/v1573738126/shoe_y83xac.png"
   },
   {
     name: "Sneaker2",
@@ -13,7 +15,9 @@ const sneakerArray = [
     sizes: ["30 inch", "32 inch", "36 inch"],
     description: "You can float around with these shoes",
     price: 34,
-    category: "men"
+    category: "kids",
+    image:
+      "https://res.cloudinary.com/dj5c34oiw/image/upload/v1573738126/shoe_y83xac.png"
   },
   {
     name: "Sneaker3",
@@ -21,7 +25,9 @@ const sneakerArray = [
     sizes: ["30 inch", "32 inch", "36 inch"],
     description: "You can float around with these shoes",
     price: 36,
-    category: "men"
+    category: "men",
+    image:
+      "https://res.cloudinary.com/dj5c34oiw/image/upload/v1573738126/shoe_y83xac.png"
   },
   {
     name: "Sneaker4",
@@ -29,7 +35,9 @@ const sneakerArray = [
     sizes: ["30 inch", "32 inch", "36 inch"],
     description: "You can float around with these shoes",
     price: 38,
-    category: "men"
+    category: "men",
+    image:
+      "https://res.cloudinary.com/dj5c34oiw/image/upload/v1573738126/shoe_y83xac.png"
   },
   {
     name: "Sneaker5",
@@ -37,7 +45,9 @@ const sneakerArray = [
     sizes: ["30 inch", "32 inch", "36 inch"],
     description: "You can float around with these shoes",
     price: 40,
-    category: "men"
+    category: "men",
+    image:
+      "https://res.cloudinary.com/dj5c34oiw/image/upload/v1573738126/shoe_y83xac.png"
   }
 ];
 
