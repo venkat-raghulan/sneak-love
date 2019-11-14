@@ -94,3 +94,25 @@ router.get("/prod-manage", protectAdminRoute, (req, res, next) => {
 router.get("/prod-add", protectAdminRoute, (req, res, next) => {
   res.render("products_add");
 });
+
+router.get("/product-edit/:id", protectAdminRoute, (req, res, next) => {
+  sneakerModel
+    .findById(req.params.id)
+    .then(dbRes => {
+      res.render("product_edit", {
+        sneaker: dbRes
+      });
+    })
+    .catch(err => console.log(err));
+});
+
+router.post("/product-edit/:id", protectAdminRoute, (req, res, next) => {
+  sneakerModel
+    .findByIdAndUpdate(req.params.id, req.body)
+    .then(dbRes => {
+      res.redirect("/prod-manage");
+    })
+    .catch(dbErr => {
+      console.log(dbErr);
+    });
+});
