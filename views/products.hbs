@@ -25,7 +25,7 @@
         {{/compare}}
         collection <span id="products_count" class="products-count">({{sneakers.length}})</span>
         <div class="filter-slider">
-          <input type="range" min="1" max="100" value="50" class="slider" id="price-filter">
+          <input type="range" min="{{this.min}}" max="{{this.max}}" value="50" class="slider" id="price-filter">
         </div>
         <div class="filter-slider">
           <input type="range" min="1" max="100" value="50" class="slider" id="size-filter">

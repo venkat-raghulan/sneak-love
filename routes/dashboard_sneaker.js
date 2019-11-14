@@ -7,6 +7,25 @@ const sneakerModel = require("./../models/Sneaker");
 
 module.exports = router;
 
+//function to find min max values for the filter
+
+function findMinMax(dbRes, filterBy, mi, ma) {
+  let minMax = { min: mi, max: ma };
+  dbRes.forEach(element => {
+    element[filterBy].forEach(a => {
+      if (Number(a) != NaN) {
+        if (Number(a) < minMax.min) {
+          minMax.min = Number(a);
+        }
+        if (Number(a) > minMax.max) {
+          minMax.max = Number(a);
+        }
+      }
+    });
+  });
+  return minMax;
+}
+
 //public routes
 
 // setup http://localhost:8080/sneakers/collection
@@ -15,7 +34,16 @@ router.get("/sneakers/collection", (req, res) => {
   sneakerModel
     .find()
     .then(dbRes => {
-      res.render("products", { sneakers: dbRes, category: "collection" });
+      min = findMinMax(dbRes, "sizes", 20, 40).min;
+      max = findMinMax(dbRes, "sizes", 20, 40).max;
+
+      res.render("products", {
+        sneakers: dbRes,
+        category: "collection",
+        scripts: ["client.js"],
+        min: min,
+        max: max
+      });
     })
     .catch(dbErr => console.log(dbErr));
 });
