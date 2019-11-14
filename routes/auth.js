@@ -28,7 +28,8 @@ router.post("/signin", (req, res, next) => {
     .then(dbRes => {
       if (!dbRes) return res.redirect("/signup");
       if (bcrypt.compareSync(user.password, dbRes.password)) {
-        return res.redirect("/");
+        req.session.currentUser = dbRes;
+        return res.redirect("/sneakers/manage");
       } else {
         return res.redirect("/signin");
       }

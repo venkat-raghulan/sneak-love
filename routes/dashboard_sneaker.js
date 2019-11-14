@@ -53,6 +53,8 @@ router.get("/sneakers/kids", (req, res) => {
     .catch(dbErr => console.log(dbErr));
 });
 
+//display one product
+
 router.get("/one-product/:id", (req, res) => {
   sneakerModel
     .findOne({ _id: req.params.id })
@@ -60,4 +62,31 @@ router.get("/one-product/:id", (req, res) => {
       res.render("one_product", { sneaker: dbRes });
     })
     .catch(dbErr => console.log(dbErr));
+});
+
+//protected routes
+
+//protected route middleware
+
+function protectAdminRoute(req, res, next) {
+  // const isAuthorized = true;
+  // console.log(req.session.currentUser)
+  const isAuthorized = req.session.currentUser;
+  if (isAuthorized) {
+    res.locals.isAdmin = true;
+    // we write in res.locals here (accessible everywhere in hbs templates)
+    // logic before the next() call ...
+    next(); // executes the next middleware in line OR the callback handling the request if this is the last middleware in line
+  } else {
+    res.locals.isAdmin = false;
+    res.redirect("/signin");
+  }
+}
+
+//manage sneakers
+
+router.get("/sneakers/manage", protectAdminRoute, (req, res, next) => {
+  sneakerModel.find().then(dbRes => {
+    res.render("products_manage", { sneakers: dbRes });
+  });
 });
