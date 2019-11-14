@@ -85,8 +85,12 @@ function protectAdminRoute(req, res, next) {
 
 //manage sneakers
 
-router.get("/sneakers/manage", protectAdminRoute, (req, res, next) => {
+router.get("/prod-manage", protectAdminRoute, (req, res, next) => {
   sneakerModel.find().then(dbRes => {
     res.render("products_manage", { sneakers: dbRes });
   });
+});
+
+router.get("/prod-add", protectAdminRoute, (req, res, next) => {
+  res.render("products_add");
 });
