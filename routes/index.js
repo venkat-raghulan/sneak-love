@@ -5,9 +5,9 @@ router.get("/", (req, res) => {
   res.render("index");
 });
 
-router.get("/sneakers/:cat", (req, res) => {
-  res.render("products");
-});
+// router.get("/sneakers/:cat", (req, res) => {
+//   res.render("products");
+// });
 
 router.get("/one-product/:id", (req, res) => {
   res.send("baz");

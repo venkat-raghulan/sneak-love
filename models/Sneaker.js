@@ -11,9 +11,9 @@ const sneakerSchema = new Schema({
     type: String,
     enum: ["men", "women", "kids"]
   },
-  id_tags: [{type: Schema.Types.ObjectId}]
+  id_tags: [{ type: Schema.Types.ObjectId }]
 });
 
-const sneakerModel = mongoose.model("Tag", sneakerSchema);
+const sneakerModel = mongoose.model("Sneaker", sneakerSchema);
 
 module.exports = sneakerModel;
