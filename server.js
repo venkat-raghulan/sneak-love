@@ -1,4 +1,4 @@
-return console.log("node says : waxOn/waxOff !");
+// return console.log("node says : waxOn/waxOff !");
 
 require("dotenv").config();
 require("./config/mongodb"); // database initial setup
@@ -21,8 +21,6 @@ hbs.registerPartials(__dirname + "/views/partials");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-
-console.log("This is war!!");
 
 // SESSION SETUP
 app.use(
