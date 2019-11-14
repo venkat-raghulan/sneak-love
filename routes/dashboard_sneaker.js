@@ -144,3 +144,12 @@ router.post("/product-edit/:id", protectAdminRoute, (req, res, next) => {
       console.log(dbErr);
     });
 });
+
+router.get("/product-delete/:id", protectAdminRoute, (req, res, next) => {
+  sneakerModel
+    .findByIdAndDelete(req.params.id)
+    .then(dbRes => {
+      res.redirect("/prod-manage");
+    })
+    .catch(dbErr => console.log(dbErr));
+});
