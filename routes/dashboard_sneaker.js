@@ -55,7 +55,16 @@ router.get("/sneakers/men", (req, res) => {
   sneakerModel
     .find({ category: "men" })
     .then(dbRes => {
-      res.render("products", { sneakers: dbRes, category: "men" });
+      min = findMinMax(dbRes, "sizes", 20, 40).min;
+      max = findMinMax(dbRes, "sizes", 20, 40).max;
+
+      res.render("products", {
+        sneakers: dbRes,
+        category: "men",
+        scripts: ["client.js"],
+        min: min,
+        max: max
+      });
     })
     .catch(dbErr => console.log(dbErr));
 });
@@ -66,7 +75,16 @@ router.get("/sneakers/women", (req, res) => {
   sneakerModel
     .find({ category: "women" })
     .then(dbRes => {
-      res.render("products", { sneakers: dbRes, category: "women" });
+      min = findMinMax(dbRes, "sizes", 20, 40).min;
+      max = findMinMax(dbRes, "sizes", 20, 40).max;
+
+      res.render("products", {
+        sneakers: dbRes,
+        category: "women",
+        scripts: ["client.js"],
+        min: min,
+        max: max
+      });
     })
     .catch(dbErr => console.log(dbErr));
 });
@@ -77,7 +95,16 @@ router.get("/sneakers/kids", (req, res) => {
   sneakerModel
     .find({ category: "kids" })
     .then(dbRes => {
-      res.render("products", { sneakers: dbRes, category: "kids" });
+      min = findMinMax(dbRes, "sizes", 20, 40).min;
+      max = findMinMax(dbRes, "sizes", 20, 40).max;
+
+      res.render("products", {
+        sneakers: dbRes,
+        category: "kids",
+        scripts: ["client.js"],
+        min: min,
+        max: max
+      });
     })
     .catch(dbErr => console.log(dbErr));
 });
@@ -133,7 +160,7 @@ router.post(
 
     object.image = req.file.url;
     object.sizes = req.body.size.split(",");
-    console.log(object);
+
     sneakerModel.create(object);
     res.render("products_add");
   }
@@ -176,5 +203,16 @@ router.get("/product-delete/:id", protectAdminRoute, (req, res, next) => {
     .then(dbRes => {
       res.redirect("/prod-manage");
     })
+    .catch(dbErr => console.log(dbErr));
+});
+
+//price filter
+
+router.get("/filtered-shoes/", (req, res) => {
+  const q = req.query.price;
+  const cat = req.query.cat;
+  sneakerModel
+    .find({ price: q, category: cat })
+    .then(dbRes => res.send(dbRes))
     .catch(dbErr => console.log(dbErr));
 });
