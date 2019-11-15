@@ -4,8 +4,9 @@
     </div>
     <p class="product-name">{{this.name}}</p>
     <p class="product-cat">{{this.category}}</p>
-    <p class="product-price">{{this.price}}</p>
+    <p class="product-price">Price £{{this.price}}</p>
+    <span>Available Sizes</span>
     {{#each this.sizes}}
-    <p class="product-size">Size: {{this}}</p>
+    <p class="product-size">EU {{this}}</p>
     {{/each}}
 </a>

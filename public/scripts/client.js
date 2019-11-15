@@ -32,7 +32,7 @@ function filterByInputPrice(evt) {
   var n = str.lastIndexOf("/");
   var result = str.substring(n + 1);
   var sliderNumber = document.getElementById("price-slider-number");
-  sliderNumber.innerHTML = evt.target.value;
+  sliderNumber.innerHTML = `£ ${evt.target.value}`;
 
   service
     .get(`/filtered-shoes?price=${evt.target.value}&cat=${result}`)
