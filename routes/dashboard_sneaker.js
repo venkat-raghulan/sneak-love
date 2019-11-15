@@ -129,9 +129,11 @@ router.post(
   protectAdminRoute,
   uploadCloud.single("image"),
   (req, res, next) => {
-    const object = req.body;
+    let object = req.body;
 
     object.image = req.file.url;
+    object.sizes = req.body.size.split(",");
+    console.log(object);
     sneakerModel.create(object);
     res.render("products_add");
   }
@@ -148,16 +150,25 @@ router.get("/product-edit/:id", protectAdminRoute, (req, res, next) => {
     .catch(err => console.log(err));
 });
 
-router.post("/product-edit/:id", protectAdminRoute, (req, res, next) => {
-  sneakerModel
-    .findByIdAndUpdate(req.params.id, req.body)
-    .then(dbRes => {
-      res.redirect("/prod-manage");
-    })
-    .catch(dbErr => {
-      console.log(dbErr);
-    });
-});
+router.post(
+  "/product-edit/:id",
+  protectAdminRoute,
+  uploadCloud.single("image"),
+  (req, res, next) => {
+    let object = req.body;
+    object.image = req.file.url;
+    object.sizes = req.body.size.split(",");
+
+    sneakerModel
+      .findByIdAndUpdate(req.params.id, object)
+      .then(dbRes => {
+        res.redirect("/prod-manage");
+      })
+      .catch(dbErr => {
+        console.log(dbErr);
+      });
+  }
+);
 
 router.get("/product-delete/:id", protectAdminRoute, (req, res, next) => {
   sneakerModel

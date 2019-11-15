@@ -1,5 +1,5 @@
 <div class="big-container product-manage-wrapper flexed-item">
-  <form method="post" action="/product-edit/{{sneaker._id}}" class="edit-product-form">
+  <form method="post" action="/product-edit/{{sneaker._id}}" class="edit-product-form" enctype="multipart/form-data">
     <h3 class="form-title"> Edit Sneaker</h3>
     <div class="form-item-wrapper flexed-item">
       <label for="sneacker-name" class="label-name label">Model name</label>
@@ -13,7 +13,7 @@
     </div>
     <div class="form-item-wrapper flexed-item">
       <label for="sneacker-size" class="label-ref label">Size</label>
-      <input name="sizes" id="sneacker-size" type="number" class="input-text input" placeholder="ex: 37"
+      <input name="size" id="sneacker-size" type="text" class="input-text input" placeholder="ex: 37"
         value="{{sneaker.size}}">
     </div>
     <div class="form-item-wrapper flexed-item">
@@ -26,6 +26,11 @@
       <input name="price" id="sneacker-price" type="number" class="sneacker-price input" min="1"
         value="{{sneaker.price}}">
     </div>
+    <div class="form-item-wrapper flexed-item">
+      <label for="sneaker-img" class="label-price label">Image</label>
+      <input id="sneaker-img" type="file" name="image" class="sneacker-price input">
+    </div>
+
     <div class="form-item-wrapper flexed-item">
       <label for="sneacker-main-cat" class="label-main-cat label">Main category</label>
       <select id="main_category" class="select" required>
