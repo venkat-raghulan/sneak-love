@@ -26,9 +26,11 @@
         collection <span id="products_count" class="products-count">({{sneakers.length}})</span>
         <div class="filter-slider">
           <input type="range" min="{{this.min}}" max="{{this.max}}" value="" class="slider" id="price-filter">
+          <span id="price-slider-number"></span>
         </div>
         <div class="filter-slider">
-          <input type="range" min="1" max="100" value="" class="slider" id="size-filter">
+          <input type="range" min="{{this.min}}" max="{{this.max}}" value="" class="slider" id="size-filter">
+          <span id="size-slider-number"></span>
         </div>
       </h4>
       <p class="products-subtitle">Prepare for your miles with the latest styles and colors of {{category}}

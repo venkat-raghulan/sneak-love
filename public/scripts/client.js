@@ -14,20 +14,29 @@ function updateList(sneakers) {
       </div>
       <p class="product-name">${sneaker.name}</p>
       <p class="product-cat">${sneaker.category}</p>
-      <p class="product-price">${sneaker.price}</p>
-  </a>`;
+      <p class="product-price">${sneaker.price}</p><br>Size`;
+
+    let tpl5 = "";
+    sneaker.sizes.forEach(size => {
+      tpl5 += `<p class="product-price">${size}</p>`;
+    });
+
+    tpl2 += `${tpl5}</a>`;
   });
+
   let tpl3 = `</div>`;
   let tpl4 = tpl1 + tpl2 + tpl3;
   productGrid.innerHTML = "";
   productGrid.innerHTML += tpl4;
 }
 
-function filterByInput(evt) {
+function filterByInputPrice(evt) {
   let str = window.location.pathname;
 
   var n = str.lastIndexOf("/");
   var result = str.substring(n + 1);
+  var sliderNumber = document.getElementById("price-slider-number");
+  sliderNumber.innerHTML = evt.target.value;
 
   service
     .get(`/filtered-shoes?price=${evt.target.value}&cat=${result}`)
@@ -37,4 +46,4 @@ function filterByInput(evt) {
     .catch(apiErr => console.log(apiErr));
 }
 
-priceFilter.oninput = filterByInput;
+priceFilter.oninput = filterByInputPrice;

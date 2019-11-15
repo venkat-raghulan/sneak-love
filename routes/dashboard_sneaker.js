@@ -12,8 +12,22 @@ module.exports = router;
 
 function findMinMax(dbRes, filterBy, mi, ma) {
   let minMax = { min: mi, max: ma };
-  dbRes.forEach(element => {
-    element[filterBy].forEach(a => {
+  if (typeof dbRes == "Array") {
+    dbRes.forEach(element => {
+      element[filterBy].forEach(a => {
+        if (Number(a) != NaN) {
+          if (Number(a) < minMax.min) {
+            minMax.min = Number(a);
+          }
+          if (Number(a) > minMax.max) {
+            minMax.max = Number(a);
+          }
+        }
+      });
+    });
+  } else {
+    dbRes.forEach(element => {
+      let a = element.filterBy;
       if (Number(a) != NaN) {
         if (Number(a) < minMax.min) {
           minMax.min = Number(a);
@@ -23,7 +37,7 @@ function findMinMax(dbRes, filterBy, mi, ma) {
         }
       }
     });
-  });
+  }
   return minMax;
 }
 
@@ -35,8 +49,8 @@ router.get("/sneakers/collection", (req, res) => {
   sneakerModel
     .find()
     .then(dbRes => {
-      min = findMinMax(dbRes, "sizes", 20, 40).min;
-      max = findMinMax(dbRes, "sizes", 20, 40).max;
+      min = findMinMax(dbRes, "price", 20, 100).min;
+      max = findMinMax(dbRes, "price", 20, 100).max;
 
       res.render("products", {
         sneakers: dbRes,
@@ -55,8 +69,8 @@ router.get("/sneakers/men", (req, res) => {
   sneakerModel
     .find({ category: "men" })
     .then(dbRes => {
-      min = findMinMax(dbRes, "sizes", 20, 40).min;
-      max = findMinMax(dbRes, "sizes", 20, 40).max;
+      min = findMinMax(dbRes, "price", 20, 100).min;
+      max = findMinMax(dbRes, "price", 20, 100).max;
 
       res.render("products", {
         sneakers: dbRes,
@@ -75,8 +89,8 @@ router.get("/sneakers/women", (req, res) => {
   sneakerModel
     .find({ category: "women" })
     .then(dbRes => {
-      min = findMinMax(dbRes, "sizes", 20, 40).min;
-      max = findMinMax(dbRes, "sizes", 20, 40).max;
+      min = findMinMax(dbRes, "price", 20, 100).min;
+      max = findMinMax(dbRes, "price", 20, 100).max;
 
       res.render("products", {
         sneakers: dbRes,
@@ -95,8 +109,8 @@ router.get("/sneakers/kids", (req, res) => {
   sneakerModel
     .find({ category: "kids" })
     .then(dbRes => {
-      min = findMinMax(dbRes, "sizes", 20, 40).min;
-      max = findMinMax(dbRes, "sizes", 20, 40).max;
+      min = findMinMax(dbRes, "price", 20, 100).min;
+      max = findMinMax(dbRes, "price", 20, 100).max;
 
       res.render("products", {
         sneakers: dbRes,
@@ -211,8 +225,15 @@ router.get("/product-delete/:id", protectAdminRoute, (req, res, next) => {
 router.get("/filtered-shoes/", (req, res) => {
   const q = req.query.price;
   const cat = req.query.cat;
-  sneakerModel
-    .find({ price: q, category: cat })
-    .then(dbRes => res.send(dbRes))
-    .catch(dbErr => console.log(dbErr));
+  if (cat != "collection") {
+    sneakerModel
+      .find({ price: q, category: cat })
+      .then(dbRes => res.send(dbRes))
+      .catch(dbErr => console.log(dbErr));
+  } else {
+    sneakerModel
+      .find({ price: q })
+      .then(dbRes => res.send(dbRes))
+      .catch(dbErr => console.log(dbErr));
+  }
 });
