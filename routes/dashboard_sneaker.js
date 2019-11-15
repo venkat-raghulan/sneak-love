@@ -1,6 +1,6 @@
 const express = require("express"); // import express in this module
 const router = new express.Router(); // create an app sub-module (router)
-const uploadCloud = require("./../config/cloudinary.js");
+const uploadCloud = require("./../config/cloudinary");
 
 //require sneaker model
 const sneakerModel = require("./../models/Sneaker");
@@ -130,7 +130,8 @@ router.post(
   uploadCloud.single("image"),
   (req, res, next) => {
     const object = req.body;
-    // object.image = req.file.url;
+
+    object.image = req.file.url;
     sneakerModel.create(object);
     res.render("products_add");
   }
