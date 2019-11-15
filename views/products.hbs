@@ -7,7 +7,7 @@
       {{#each tags}}
       <li class="tag-list-item">
         <input id="input_{{this._id}}" type="checkbox" data-tag-id="{{this._id}}" class="checkbox" />
-        <label for="input_{{this._id}}">{{this.name}}</label>
+        <label for="input_{{this._id}}">{{this.label}}</label>
       </li>
       {{/each}}
     </ul>
@@ -28,10 +28,10 @@
           <input type="range" min="{{this.min}}" max="{{this.max}}" value="" class="slider" id="price-filter">
           <span id="price-slider-number"></span>
         </div>
-        <div class="filter-slider">
+        {{!-- <div class="filter-slider">
           <input type="range" min="{{this.min}}" max="{{this.max}}" value="" class="slider" id="size-filter">
           <span id="size-slider-number"></span>
-        </div>
+        </div> --}}
       </h4>
       <p class="products-subtitle">Prepare for your miles with the latest styles and colors of {{category}}
         running shoes.

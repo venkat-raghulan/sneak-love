@@ -4,6 +4,7 @@ const uploadCloud = require("./../config/cloudinary");
 
 //require sneaker model
 const sneakerModel = require("./../models/Sneaker");
+const tagModel = require("./../models/Tag");
 // const tagModel = require("./../models/Tag");
 
 module.exports = router;
@@ -52,13 +53,19 @@ router.get("/sneakers/collection", (req, res) => {
       min = findMinMax(dbRes, "price", 20, 100).min;
       max = findMinMax(dbRes, "price", 20, 100).max;
 
-      res.render("products", {
-        sneakers: dbRes,
-        category: "collection",
-        scripts: ["client.js"],
-        min: min,
-        max: max
-      });
+      tagModel
+        .find()
+        .then(dbRes1 => {
+          res.render("products", {
+            sneakers: dbRes,
+            tags: dbRes1,
+            category: "collection",
+            scripts: ["client.js"],
+            min: min,
+            max: max
+          });
+        })
+        .catch();
     })
     .catch(dbErr => console.log(dbErr));
 });
@@ -72,13 +79,19 @@ router.get("/sneakers/men", (req, res) => {
       min = findMinMax(dbRes, "price", 20, 100).min;
       max = findMinMax(dbRes, "price", 20, 100).max;
 
-      res.render("products", {
-        sneakers: dbRes,
-        category: "men",
-        scripts: ["client.js"],
-        min: min,
-        max: max
-      });
+      tagModel
+        .find()
+        .then(dbRes1 => {
+          res.render("products", {
+            sneakers: dbRes,
+            tags: dbRes1,
+            category: "men",
+            scripts: ["client.js"],
+            min: min,
+            max: max
+          });
+        })
+        .catch();
     })
     .catch(dbErr => console.log(dbErr));
 });
@@ -86,19 +99,26 @@ router.get("/sneakers/men", (req, res) => {
 // setup http://localhost:8080/sneakers/women
 
 router.get("/sneakers/women", (req, res) => {
+  sneakerModel;
   sneakerModel
     .find({ category: "women" })
     .then(dbRes => {
       min = findMinMax(dbRes, "price", 20, 100).min;
       max = findMinMax(dbRes, "price", 20, 100).max;
 
-      res.render("products", {
-        sneakers: dbRes,
-        category: "women",
-        scripts: ["client.js"],
-        min: min,
-        max: max
-      });
+      tagModel
+        .find()
+        .then(dbRes1 => {
+          res.render("products", {
+            sneakers: dbRes,
+            tags: dbRes1,
+            category: "women",
+            scripts: ["client.js"],
+            min: min,
+            max: max
+          });
+        })
+        .catch();
     })
     .catch(dbErr => console.log(dbErr));
 });
@@ -112,13 +132,19 @@ router.get("/sneakers/kids", (req, res) => {
       min = findMinMax(dbRes, "price", 20, 100).min;
       max = findMinMax(dbRes, "price", 20, 100).max;
 
-      res.render("products", {
-        sneakers: dbRes,
-        category: "kids",
-        scripts: ["client.js"],
-        min: min,
-        max: max
-      });
+      tagModel
+        .find()
+        .then(dbRes1 => {
+          res.render("products", {
+            sneakers: dbRes,
+            tags: dbRes1,
+            category: "kids",
+            scripts: ["client.js"],
+            min: min,
+            max: max
+          });
+        })
+        .catch();
     })
     .catch(dbErr => console.log(dbErr));
 });
@@ -162,7 +188,12 @@ router.get("/prod-manage", protectAdminRoute, (req, res, next) => {
 });
 
 router.get("/prod-add", protectAdminRoute, (req, res, next) => {
-  res.render("products_add");
+  tagModel
+    .find()
+    .then(dbRes1 => {
+      res.render("products_add", { tags: dbRes1 });
+    })
+    .catch();
 });
 
 router.post(
@@ -236,4 +267,12 @@ router.get("/filtered-shoes/", (req, res) => {
       .then(dbRes => res.send(dbRes))
       .catch(dbErr => console.log(dbErr));
   }
+});
+
+router.get("/add-tag", (req, res) => {
+  console.log("bar");
+  let object = {};
+  object.label = req.query.label;
+  console.log(object);
+  tagModel.create(object);
 });
